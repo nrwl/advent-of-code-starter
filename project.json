@@ -28,6 +28,74 @@
         "targetPuzzle": "a",
         "watch": false
       }
+    },
+    "build-day-2-a": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist",
+        "main": "src/day-2/a.ts",
+        "tsConfig": "tsconfig.app.json",
+        "outputFileName": "day-2-a"
+      }
+    },
+    "build-day-2-b": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist",
+        "main": "src/day-2/b.ts",
+        "tsConfig": "tsconfig.app.json",
+        "outputFileName": "day-2-b"
+      }
+    },
+    "day-2-a": {
+      "executor": "@advent-of-code-starter/nx-advent-of-code-plugin:puzzle",
+      "inputs": [
+        "{workspaceRoot}/data/day-2/a.txt",
+        "{workspaceRoot}/data/day-2/a-test.txt",
+        "{workspaceRoot}/src/day-2/a.ts"
+      ],
+      "options": {
+        "targetDay": "2",
+        "targetPuzzle": "a",
+        "watch": false
+      }
+    },
+    "day-2-b": {
+      "executor": "@advent-of-code-starter/nx-advent-of-code-plugin:puzzle",
+      "inputs": [
+        "{workspaceRoot}/data/day-2/b.txt",
+        "{workspaceRoot}/data/day-2/b-test.txt",
+        "{workspaceRoot}/src/day-2/b.ts"
+      ],
+      "options": {
+        "targetDay": "2",
+        "targetPuzzle": "b",
+        "watch": false
+      }
+    },
+    "test-day-2-a": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "jest.config.ts",
+        "passWithNoTests": true,
+        "codeCoverage": false,
+        "testPathPattern": ["day-2/a.spec.ts"]
+      }
+    },
+    "test-day-2-b": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "jest.config.ts",
+        "passWithNoTests": true,
+        "codeCoverage": false,
+        "testPathPattern": ["day-2/b.spec.ts"]
+      }
     }
   },
   "tags": []

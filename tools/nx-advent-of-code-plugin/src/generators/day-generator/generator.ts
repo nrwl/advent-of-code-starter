@@ -4,6 +4,8 @@ import {
   readProjectConfiguration,
   Tree,
   updateProjectConfiguration,
+  writeJson,
+  writeJsonFile,
 } from '@nrwl/devkit';
 import { readNxJson } from 'nx/src/generators/utils/project-configuration';
 import * as path from 'path';
@@ -13,8 +15,8 @@ export default async function (
   tree: Tree,
   options: DayGeneratorGeneratorSchema
 ) {
-  addTargets(tree, options.dayName);
-  addCacheableOperations(tree, options.dayName);
+  addTargets(tree, `${options.dayName}`);
+  addCacheableOperations(tree, `${options.dayName}`);
   addFiles(tree, options);
   await formatFiles(tree);
 }
@@ -34,7 +36,7 @@ function addTargets(tree: Tree, dayName: string) {
         outputPath: 'dist',
         main: `src/day-${dayName}/a.ts`,
         tsConfig: 'tsconfig.app.json',
-        outputFileName: 'day-${dayName}-a',
+        outputFileName: `day-${dayName}-a`,
       },
     },
   };
@@ -48,42 +50,73 @@ function addTargets(tree: Tree, dayName: string) {
         outputPath: 'dist',
         main: `src/day-${dayName}/b.ts`,
         tsConfig: 'tsconfig.app.json',
-        outputFileName: 'day-${dayName}-b',
+        outputFileName: `day-${dayName}-b`,
       },
     },
   };
   const runATarget = {
-    executor: '@advent-of-code-starter/nx-advent-of-code-plugin:puzzle',
-    inputs: [
-      `{workspaceRoot}/data/day-${dayName}/a.txt`,
-      `{workspaceRoot}/data/day-${dayName}/a-test.txt`,
-      `{workspaceRoot}/src/day-${dayName}/a.ts`,
-    ],
-    options: {
-      targetDay: dayName,
-      targetPuzzle: 'a',
-      watch: false,
+    [`day-${dayName}-a`]: {
+      executor: '@advent-of-code-starter/nx-advent-of-code-plugin:puzzle',
+      inputs: [
+        `{workspaceRoot}/data/day-${dayName}/a.txt`,
+        `{workspaceRoot}/data/day-${dayName}/a-test.txt`,
+        `{workspaceRoot}/src/day-${dayName}/a.ts`,
+      ],
+      options: {
+        targetDay: dayName,
+        targetPuzzle: 'a',
+        watch: false,
+      },
     },
   };
   const runBTarget = {
-    executor: '@advent-of-code-starter/nx-advent-of-code-plugin:puzzle',
-    inputs: [
-      `{workspaceRoot}/data/day-${dayName}/b.txt`,
-      `{workspaceRoot}/data/day-${dayName}/b-test.txt`,
-      `{workspaceRoot}/src/day-${dayName}/b.ts`,
-    ],
-    options: {
-      targetDay: dayName,
-      targetPuzzle: 'b',
-      watch: false,
+    [`day-${dayName}-b`]: {
+      executor: '@advent-of-code-starter/nx-advent-of-code-plugin:puzzle',
+      inputs: [
+        `{workspaceRoot}/data/day-${dayName}/b.txt`,
+        `{workspaceRoot}/data/day-${dayName}/b-test.txt`,
+        `{workspaceRoot}/src/day-${dayName}/b.ts`,
+      ],
+      options: {
+        targetDay: dayName,
+        targetPuzzle: 'b',
+        watch: false,
+      },
+    },
+  };
+  const testATarget = {
+    [`test-day-${dayName}-a`]: {
+      executor: '@nrwl/jest:jest',
+      options: {
+        jestConfig: 'jest.config.ts',
+        passWithNoTests: true,
+        codeCoverage: false,
+        testPathPattern: [`day-${dayName}/a.spec.ts`],
+      },
+    },
+  };
+  const testBTarget = {
+    [`test-day-${dayName}-b`]: {
+      executor: '@nrwl/jest:jest',
+      options: {
+        jestConfig: 'jest.config.ts',
+        passWithNoTests: true,
+        codeCoverage: false,
+        testPathPattern: [`day-${dayName}/b.spec.ts`],
+      },
     },
   };
   updateProjectConfiguration(tree, 'advent-of-code-starter', {
     ...projectConfig,
-    ...buildATarget,
-    ...buildBTarget,
-    ...runATarget,
-    ...runBTarget,
+    targets: {
+      ...projectConfig.targets,
+      ...buildATarget,
+      ...buildBTarget,
+      ...runATarget,
+      ...runBTarget,
+      ...testATarget,
+      ...testBTarget,
+    },
   });
 }
 
@@ -95,11 +128,16 @@ function addCacheableOperations(tree: Tree, dayName: string) {
     `day-${dayName}-b`,
   ];
   const nxConfig = readNxJson(tree);
+  const cacheableOperationsSet = new Set(
+    nxConfig.tasksRunnerOptions.default.options.cacheableOperations
+  );
   for (const targetName of targetNames) {
-    nxConfig.tasksRunnerOptions.default.options.cacheableOperations.push(
-      targetName
-    );
+    cacheableOperationsSet.add(targetName);
   }
+  nxConfig.tasksRunnerOptions.default.options.cacheableOperations = [
+    ...cacheableOperationsSet,
+  ];
+  writeJson(tree, 'nx.json', nxConfig);
 }
 
 function addFiles(tree: Tree, options: DayGeneratorGeneratorSchema) {

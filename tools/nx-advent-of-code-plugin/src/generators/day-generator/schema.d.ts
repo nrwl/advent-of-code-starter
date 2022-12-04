@@ -1,3 +1,3 @@
 export interface DayGeneratorGeneratorSchema {
-  dayName: string;
+  dayName: number;
 }
