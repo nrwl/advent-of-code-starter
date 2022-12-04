@@ -1,1 +1,7 @@
-const variable = "<%= projectName %>";
+import { day<%= dayName %>b } from './a';
+
+describe('Puzzle <%= dayName %> b', () => {
+  test('given example', async () => {
+    expect(await day<%= dayName %>b('data/day-<%= dayName %>/b-test.txt')).toBe(0);
+  });
+});
