@@ -16,6 +16,18 @@
         "outputFileName": "day-1-a"
       }
     },
+    "build-day-1-b": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist",
+        "main": "src/day-1/b.ts",
+        "tsConfig": "tsconfig.app.json",
+        "outputFileName": "day-1-b"
+      }
+    },
     "day-1-a": {
       "executor": "@advent-of-code-starter/nx-advent-of-code-plugin:puzzle",
       "inputs": [
@@ -27,6 +39,37 @@
         "targetDay": "1",
         "targetPuzzle": "a",
         "watch": false
+      }
+    },
+    "day-1-b": {
+      "executor": "@advent-of-code-starter/nx-advent-of-code-plugin:puzzle",
+      "inputs": [
+        "{workspaceRoot}/data/day-1/b.txt",
+        "{workspaceRoot}/data/day-1/b-test.txt",
+        "{workspaceRoot}/src/day-1/b.ts"
+      ],
+      "options": {
+        "targetDay": "1",
+        "targetPuzzle": "b",
+        "watch": false
+      }
+    },
+    "test-day-1-a": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "jest.config.ts",
+        "passWithNoTests": true,
+        "codeCoverage": false,
+        "testPathPattern": ["day-1/a.spec.ts"]
+      }
+    },
+    "test-day-1-b": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "jest.config.ts",
+        "passWithNoTests": true,
+        "codeCoverage": false,
+        "testPathPattern": ["day-1/b.spec.ts"]
       }
     },
     "build-day-2-a": {
@@ -95,117 +138,6 @@
         "passWithNoTests": true,
         "codeCoverage": false,
         "testPathPattern": ["day-2/b.spec.ts"]
-      }
-    },
-    "build-day-25-a": {
-      "executor": "@nrwl/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "target": "node",
-        "compiler": "tsc",
-        "outputPath": "dist",
-        "main": "src/day-25/a.ts",
-        "tsConfig": "tsconfig.app.json",
-        "outputFileName": "day-25-a"
-      }
-    },
-    "build-day-25-b": {
-      "executor": "@nrwl/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "target": "node",
-        "compiler": "tsc",
-        "outputPath": "dist",
-        "main": "src/day-25/b.ts",
-        "tsConfig": "tsconfig.app.json",
-        "outputFileName": "day-25-b"
-      }
-    },
-    "day-25-a": {
-      "executor": "@advent-of-code-starter/nx-advent-of-code-plugin:puzzle",
-      "inputs": [
-        "{workspaceRoot}/data/day-25/a.txt",
-        "{workspaceRoot}/data/day-25/a-test.txt",
-        "{workspaceRoot}/src/day-25/a.ts"
-      ],
-      "options": {
-        "targetDay": "25",
-        "targetPuzzle": "a",
-        "watch": false
-      }
-    },
-    "day-25-b": {
-      "executor": "@advent-of-code-starter/nx-advent-of-code-plugin:puzzle",
-      "inputs": [
-        "{workspaceRoot}/data/day-25/b.txt",
-        "{workspaceRoot}/data/day-25/b-test.txt",
-        "{workspaceRoot}/src/day-25/b.ts"
-      ],
-      "options": {
-        "targetDay": "25",
-        "targetPuzzle": "b",
-        "watch": false
-      }
-    },
-    "test-day-25-a": {
-      "executor": "@nrwl/jest:jest",
-      "options": {
-        "jestConfig": "jest.config.ts",
-        "passWithNoTests": true,
-        "codeCoverage": false,
-        "testPathPattern": ["day-25/a.spec.ts"]
-      }
-    },
-    "test-day-25-b": {
-      "executor": "@nrwl/jest:jest",
-      "options": {
-        "jestConfig": "jest.config.ts",
-        "passWithNoTests": true,
-        "codeCoverage": false,
-        "testPathPattern": ["day-25/b.spec.ts"]
-      }
-    },
-    "build-day-1-b": {
-      "executor": "@nrwl/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "target": "node",
-        "compiler": "tsc",
-        "outputPath": "dist",
-        "main": "src/day-1/b.ts",
-        "tsConfig": "tsconfig.app.json",
-        "outputFileName": "day-1-b"
-      }
-    },
-    "day-1-b": {
-      "executor": "@advent-of-code-starter/nx-advent-of-code-plugin:puzzle",
-      "inputs": [
-        "{workspaceRoot}/data/day-1/b.txt",
-        "{workspaceRoot}/data/day-1/b-test.txt",
-        "{workspaceRoot}/src/day-1/b.ts"
-      ],
-      "options": {
-        "targetDay": "1",
-        "targetPuzzle": "b",
-        "watch": false
-      }
-    },
-    "test-day-1-a": {
-      "executor": "@nrwl/jest:jest",
-      "options": {
-        "jestConfig": "jest.config.ts",
-        "passWithNoTests": true,
-        "codeCoverage": false,
-        "testPathPattern": ["day-1/a.spec.ts"]
-      }
-    },
-    "test-day-1-b": {
-      "executor": "@nrwl/jest:jest",
-      "options": {
-        "jestConfig": "jest.config.ts",
-        "passWithNoTests": true,
-        "codeCoverage": false,
-        "testPathPattern": ["day-1/b.spec.ts"]
       }
     },
     "build-day-3-a": {
@@ -1702,6 +1634,74 @@
         "passWithNoTests": true,
         "codeCoverage": false,
         "testPathPattern": ["day-24/b.spec.ts"]
+      }
+    },
+    "build-day-25-a": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist",
+        "main": "src/day-25/a.ts",
+        "tsConfig": "tsconfig.app.json",
+        "outputFileName": "day-25-a"
+      }
+    },
+    "build-day-25-b": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist",
+        "main": "src/day-25/b.ts",
+        "tsConfig": "tsconfig.app.json",
+        "outputFileName": "day-25-b"
+      }
+    },
+    "day-25-a": {
+      "executor": "@advent-of-code-starter/nx-advent-of-code-plugin:puzzle",
+      "inputs": [
+        "{workspaceRoot}/data/day-25/a.txt",
+        "{workspaceRoot}/data/day-25/a-test.txt",
+        "{workspaceRoot}/src/day-25/a.ts"
+      ],
+      "options": {
+        "targetDay": "25",
+        "targetPuzzle": "a",
+        "watch": false
+      }
+    },
+    "day-25-b": {
+      "executor": "@advent-of-code-starter/nx-advent-of-code-plugin:puzzle",
+      "inputs": [
+        "{workspaceRoot}/data/day-25/b.txt",
+        "{workspaceRoot}/data/day-25/b-test.txt",
+        "{workspaceRoot}/src/day-25/b.ts"
+      ],
+      "options": {
+        "targetDay": "25",
+        "targetPuzzle": "b",
+        "watch": false
+      }
+    },
+    "test-day-25-a": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "jest.config.ts",
+        "passWithNoTests": true,
+        "codeCoverage": false,
+        "testPathPattern": ["day-25/a.spec.ts"]
+      }
+    },
+    "test-day-25-b": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "jest.config.ts",
+        "passWithNoTests": true,
+        "codeCoverage": false,
+        "testPathPattern": ["day-25/b.spec.ts"]
       }
     }
   },
