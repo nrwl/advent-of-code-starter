@@ -1,0 +1,53 @@
+{
+  "name": "nx-advent-of-code-plugin",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "tools/nx-advent-of-code-plugin/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/tools/nx-advent-of-code-plugin",
+        "main": "tools/nx-advent-of-code-plugin/src/index.ts",
+        "tsConfig": "tools/nx-advent-of-code-plugin/tsconfig.lib.json",
+        "assets": [
+          "tools/nx-advent-of-code-plugin/*.md",
+          {
+            "input": "./tools/nx-advent-of-code-plugin/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/nx-advent-of-code-plugin/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/nx-advent-of-code-plugin",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./tools/nx-advent-of-code-plugin",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "tools/nx-advent-of-code-plugin/**/*.ts",
+          "tools/nx-advent-of-code-plugin/generators.json",
+          "tools/nx-advent-of-code-plugin/executors.json",
+          "tools/nx-advent-of-code-plugin/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "cli": "nx",
+  "title": "Day executor",
+  "description": "run code for a target day",
+  "type": "object",
+  "properties": {
+    "targetDay": {
+      "type": "string",
+      "description": "The day to run the code for"
+    },
+    "targetPuzzle": {
+      "type": "string",
+      "description": "The puzzle to run the code for (must be 'a' or 'b')"
+    },
+    "testData": {
+      "type": "boolean",
+      "description": "When option is provided, will use the test data.txt file instead of the real data.txt file"
+    },
+    "buildTargetOptions": {
+      "type": "object",
+      "description": "Additional options to pass into the build target.",
+      "default": {}
+    },
+    "waitUntilTargets": {
+      "type": "array",
+      "description": "The targets to run to before starting the node app.",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "host": {
+      "type": "string",
+      "default": "localhost",
+      "description": "The host to inspect the process on."
+    },
+    "port": {
+      "type": "number",
+      "default": 9229,
+      "description": "The port to inspect the process on. Setting port to 0 will assign random free ports to all forked processes."
+    },
+    "inspect": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": ["inspect", "inspect-brk"]
+        },
+        {
+          "type": "boolean"
+        }
+      ],
+      "description": "Ensures the app is starting with debugging.",
+      "default": "inspect"
+    },
+    "runtimeArgs": {
+      "type": "array",
+      "description": "Extra args passed to the node process.",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "args": {
+      "type": "array",
+      "description": "Extra args when starting the app.",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "watch": {
+      "type": "boolean",
+      "description": "Enable re-building when files change.",
+      "default": true
+    }
+  },
+  "required": ["targetDay", "targetPuzzle"]
+}

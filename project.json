@@ -4,46 +4,29 @@
   "sourceRoot": "./src",
   "projectType": "application",
   "targets": {
-    "build": {
-      "executor": "@nrwl/vite:build",
+    "build-day-1-a": {
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/advent-of-code-starter"
-      },
-      "configurations": {
-        "development": {},
-        "production": {}
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist",
+        "main": "src/day-1/a.ts",
+        "tsConfig": "tsconfig.app.json",
+        "outputFileName": "day-1-a"
       }
     },
-    "serve": {
-      "executor": "@nrwl/vite:dev-server",
-      "defaultConfiguration": "development",
+    "day-1-a": {
+      "executor": "@advent-of-code-starter/nx-advent-of-code-plugin:puzzle",
+      "inputs": [
+        "{workspaceRoot}/data/day-1/a.txt",
+        "{workspaceRoot}/data/day-1/a-test.txt",
+        "{workspaceRoot}/src/day-1/a.ts"
+      ],
       "options": {
-        "buildTarget": "advent-of-code-starter:build"
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "advent-of-code-starter:build:development"
-        },
-        "production": {
-          "buildTarget": "advent-of-code-starter:build:production",
-          "hmr": false
-        }
-      }
-    },
-    "test": {
-      "executor": "@nrwl/vite:test",
-      "outputs": ["{projectRoot}/coverage"],
-      "options": {
-        "passWithNoTests": true
-      }
-    },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["./src/**/*.{ts,tsx,js,jsx}"]
+        "targetDay": "1",
+        "targetPuzzle": "a",
+        "watch": false
       }
     }
   },

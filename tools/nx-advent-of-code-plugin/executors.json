@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "executors": {
+    "puzzle": {
+      "implementation": "./src/executors/puzzle/executor",
+      "schema": "./src/executors/puzzle/schema.json",
+      "description": "run code for a target puzzle"
+    }
+  }
+}

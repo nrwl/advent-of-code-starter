@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-advent-of-code-plugin",
+  "version": "0.0.1",
+  "generators": {
+    "day-generator": {
+      "factory": "./src/generators/day-generator/generator",
+      "schema": "./src/generators/day-generator/schema.json",
+      "description": "generates all the files for a single day of advent of code"
+    }
+  }
+}
