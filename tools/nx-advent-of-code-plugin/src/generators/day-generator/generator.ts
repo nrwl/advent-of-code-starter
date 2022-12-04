@@ -1,13 +1,14 @@
 import {
   formatFiles,
   generateFiles,
-  readProjectConfiguration,
+  readJson,
   Tree,
-  updateProjectConfiguration,
   writeJson,
-  writeJsonFile,
 } from '@nrwl/devkit';
-import { readNxJson } from 'nx/src/generators/utils/project-configuration';
+import {
+  readNxJson,
+  readProjectConfiguration,
+} from 'nx/src/generators/utils/project-configuration';
 import * as path from 'path';
 import { DayGeneratorGeneratorSchema } from './schema';
 
@@ -18,14 +19,11 @@ export default async function (
   addTargets(tree, `${options.dayName}`);
   addCacheableOperations(tree, `${options.dayName}`);
   addFiles(tree, options);
-  await formatFiles(tree);
+  formatFiles(tree);
 }
 
 function addTargets(tree: Tree, dayName: string) {
-  const projectConfig = readProjectConfiguration(
-    tree,
-    'advent-of-code-starter'
-  );
+  const projectConfig = readJson(tree, 'project.json');
   const buildATarget = {
     [`build-day-${dayName}-a`]: {
       executor: '@nrwl/webpack:webpack',
@@ -106,7 +104,7 @@ function addTargets(tree: Tree, dayName: string) {
       },
     },
   };
-  updateProjectConfiguration(tree, 'advent-of-code-starter', {
+  writeJson(tree, 'project.json', {
     ...projectConfig,
     targets: {
       ...projectConfig.targets,
@@ -126,6 +124,8 @@ function addCacheableOperations(tree: Tree, dayName: string) {
     `build-day-${dayName}-b`,
     `day-${dayName}-a`,
     `day-${dayName}-b`,
+    `test-day-${dayName}-a`,
+    `test-day-${dayName}-b`,
   ];
   const nxConfig = readNxJson(tree);
   const cacheableOperationsSet = new Set(

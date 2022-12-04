@@ -1,4 +1,4 @@
-import { day2b } from './a';
+import { day2b } from './b';
 
 describe('Puzzle 2 b', () => {
   test('given example', async () => {

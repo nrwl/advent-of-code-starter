@@ -7,6 +7,11 @@
       "factory": "./src/generators/day-generator/generator",
       "schema": "./src/generators/day-generator/schema.json",
       "description": "generates all the files for a single day of advent of code"
+    },
+    "all-days": {
+      "factory": "./src/generators/all-days/generator",
+      "schema": "./src/generators/all-days/schema.json",
+      "description": "generates all 25 days of advent of code"
     }
   }
 }

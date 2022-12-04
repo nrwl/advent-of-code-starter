@@ -1,4 +1,4 @@
-import { day<%= dayName %>b } from './a';
+import { day<%= dayName %>b } from './b';
 
 describe('Puzzle <%= dayName %> b', () => {
   test('given example', async () => {
