@@ -1,5 +1,7 @@
 # AdventOfCodeStarter
 
+[![](https://markdown-videos.deta.dev/youtube/2P4N4ihe_lY)](https://youtu.be/2P4N4ihe_lY)
+
 ## How it works:
 
 Clone this repo with the command:
